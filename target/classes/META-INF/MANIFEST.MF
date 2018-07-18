@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: project
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: com.project
+Build-Jdk: 1.8.0_102
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/project
+Created-By: Maven Integration for Eclipse
+

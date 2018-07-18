@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.ProjectMapper">
+	<resultMap type="com.project.entity.Project" id="projectMapper">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="sex" property="sex" />
+		<result column="age" property="age" />
+	</resultMap>
+	<!--新增 -->
+	<insert id="insert">
+		INSERT INTO project(username,password,salt,sex,age)
+		VALUES(#{username},#{password},#{salt},#{sex},#{age})
+	</insert>
+	<!--登录 -->
+	<select id="login" resultMap="projectMapper">
+		select
+		username,password,salt,sex,age from
+		project
+		where
+		username=#{username}
+	</select>
+	<!--查询 -->
+	<select id="select" resultType="java.util.Map" parameterType="java.util.Map">
+		select
+		username,password,salt,sex,age from
+		project
+		<where>
+			<if test="username!=null and username!=''">
+				username LIKE '%' #{username} '%'
+			</if>
+		</where>
+		LIMIT
+		#{pageIndex},#{pageSize}
+	</select>
+	<!--查询总条数 -->
+	<select id="countselect" resultType="int">
+		select count(id)
+		from project
+		<where>
+			<if test="username!=null and username!=''">
+				username LIKE '%' #{username} '%'
+			</if>
+		</where>
+	</select>
+	<!--删除 -->
+	<delete id="delete">
+		DELETE FROM project WHERE id=#{id}
+	</delete>
+	<!-- 修改前id查询 -->
+	<select id="updateselect" resultMap="projectMapper">
+		select
+		username,password,salt,sex,age from project WHERE
+		id=#{id}
+	</select>
+	<!-- 修改 -->
+	<update id="update">
+		UPDATE
+		project SET
+		username=#{username},
+		password=#{password},
+		salt=#{salt},
+		sex=#{sex},
+		age=#{age}
+		where id=#{id}
+	</update>
+</mapper>
